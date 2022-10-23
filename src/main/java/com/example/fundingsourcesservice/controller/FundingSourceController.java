@@ -4,7 +4,7 @@ import com.example.fundingsourcesservice.data.SampleResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("sources")
+@RequestMapping("/api/v1/sources")
 public class FundingSourceController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
