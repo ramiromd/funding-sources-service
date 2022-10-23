@@ -29,6 +29,31 @@ No obstante, se espera que la solución pueda ser extensible a otros medios; com
 El servicio deberá facilitar las siguientes operaciones, a los usuarios finales: *crear un nuevo medio de pago*,
 *deshabilitar un medio de pago*, *listar los medios de pagos* y *obtener el detalle de un medio de pago*.
 
-## :-1: Solución #1
+### :-1: Solución #1
 
-## :+1: Solución #2
+Una primera solución puede ser, modelar cada medio de financiación como un recurso aislado del resto. Cada uno con su
+propio modelo, contrato y endpoint. Por ejemplo:
+
+- /credit_cards
+- /bank_accounts
+
+Esto tiene algunas desventajas:
+
+- Existe un endpoint por cada recurso, generando confusión y dificultando la implementación de los clientes.
+- Al pensar en los modelos de forma aislada entre si, los desarrolladores podrían generar código duplicado al implementar
+nuevos medios de financiación.
+- Si se quisieran listar todos los medios de financiación, se debería crear un nuevo endpoint.
+
+### :+1: Solución #2
+
+Podemos ver a los medios de financiación, como una jerarquía; en lugar de entidades aisladas. Donde atributos en común
+estén en la generalización, y los atributos propios de cada medio; en su especialización. De esta forma, podemos tener 
+un único endpoint. Presumiblemente `/funding_sources`.
+
+Esto supone las siguientes ventajas.
+
+- El contrato del servicio es más claro y fácil de implementar. Solo se dispone de un único endpoint y, a lo sumo, se
+definen nuevos objetos de especialización.
+- El código del servicio es más coherente y reduce la posibilidad de que los desarrolladores ejerzan malas practicas.
+- Se pueden listar todos los medios de financiación, exponiendo solo los atributos de la generalización. Luego, cuando
+se solicite el detalle de un medio; el contrato será más específico.
