@@ -1,6 +1,6 @@
-package com.example.fundingsourcesservice.entities;
+package com.example.fundingsourcesservice.entity;
 
-import com.example.fundingsourcesservice.entities.enums.CreditCardBrand;
+import com.example.fundingsourcesservice.entity.enums.CreditCardBrand;
 import lombok.Data;
 
 import javax.persistence.*;

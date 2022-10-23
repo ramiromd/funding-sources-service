@@ -1,6 +1,6 @@
 package com.example.fundingsourcesservice.repository;
 
-import com.example.fundingsourcesservice.entities.Source;
+import com.example.fundingsourcesservice.entity.Source;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

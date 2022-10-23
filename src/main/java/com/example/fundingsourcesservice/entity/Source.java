@@ -1,4 +1,4 @@
-package com.example.fundingsourcesservice.entities;
+package com.example.fundingsourcesservice.entity;
 
 import lombok.Data;
 

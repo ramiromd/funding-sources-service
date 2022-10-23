@@ -1,10 +1,7 @@
 package com.example.fundingsourcesservice.integration.repository;
 
-import com.example.fundingsourcesservice.entities.BankAccount;
-import com.example.fundingsourcesservice.entities.CreditCard;
+import com.example.fundingsourcesservice.entity.BankAccount;
 import com.example.fundingsourcesservice.repository.BankAccountRepository;
-import com.example.fundingsourcesservice.repository.CreditCardRepository;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
