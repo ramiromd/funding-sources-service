@@ -1,5 +1,6 @@
 package com.example.fundingsourcesservice.entities;
 
+import com.example.fundingsourcesservice.entities.enums.CreditCardBrand;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ public class CreditCard extends Source {
     private int bin;
 
     @Column(length = 32)
-    private String brand;
+    private CreditCardBrand brand;
 
     @Column
     private int lastFourDigits;

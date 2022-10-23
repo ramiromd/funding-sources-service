@@ -19,7 +19,7 @@ public class Source {
     @Column(length=100, nullable=false)
     private String name;
 
-    @Column(length=32, nullable = false)
+    @Column(length=36, nullable = false)
     private String userId;
 
     @Column(nullable = false, updatable = false)
