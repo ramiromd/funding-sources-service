@@ -15,7 +15,7 @@ En un principio, se busca modelar los siguientes medios: *tarjetas de crédito* 
 
 De una **tarjeta de crédito**, se deben conocer los siguientes datos; un identificador univoco del recurso, el identificador
 del usuario propietario del recurso, un nombre descriptivo del recurso,  el nombre que figura en la tarjeta, 
-su número de identificación bancaria (**BIN**), sus últimos 4 dígitos, su fecha de caducidad, la fecha de creación del 
+su número de identificación bancaria (**BIN**), su franquicia, sus últimos 4 dígitos, su fecha de caducidad, la fecha de creación del 
 recurso y la fecha de baja del recurso.
 
 Mientras que, de una **cuenta bancaria** se deben conocer los siguientes datos; un identificador univoco del recurso, el 
