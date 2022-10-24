@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@DiscriminatorValue("bank_account")
+@DiscriminatorValue(TypeDiscriminator.BANK_ACCOUNT)
 public class BankAccount extends Source {
 
     @Column(length = 100)

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@DiscriminatorValue("credit_card")
+@DiscriminatorValue(TypeDiscriminator.CREDIT_CARD)
 public class CreditCard extends Source {
 
     @Column(length = 100)

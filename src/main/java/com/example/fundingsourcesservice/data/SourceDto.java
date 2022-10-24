@@ -1,5 +1,6 @@
 package com.example.fundingsourcesservice.data;
 
+import com.example.fundingsourcesservice.entity.TypeDiscriminator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
@@ -14,8 +15,8 @@ import lombok.Setter;
         property = "type" // Discriminator: A nivel de JSON. Luego, no lo tiene en cuenta para convertir a objeto.
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = CreditCardDto.class, name = "credit_card"),
-        @JsonSubTypes.Type(value = BankAccountDto.class, name = "bank_account")
+        @JsonSubTypes.Type(value = CreditCardDto.class, name = TypeDiscriminator.CREDIT_CARD),
+        @JsonSubTypes.Type(value = BankAccountDto.class, name = TypeDiscriminator.BANK_ACCOUNT)
 })
 abstract public class SourceDto {
 

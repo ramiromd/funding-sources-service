@@ -1,5 +1,6 @@
 package com.example.fundingsourcesservice.data;
 
+import com.example.fundingsourcesservice.entity.TypeDiscriminator;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ public class BankAccountDto extends SourceDto implements SourceDtoInterface {
     private String number;
 
     public String getType() {
-        return "bank_account";
+        return TypeDiscriminator.BANK_ACCOUNT;
     }
 
 }
