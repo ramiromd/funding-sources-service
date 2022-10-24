@@ -3,13 +3,7 @@ package com.example.fundingsourcesservice.data;
 import lombok.Data;
 
 @Data
-public class BankAccountDto implements SourceDtoInterface {
-
-    private String userId;
-
-    private String type;
-
-    private String name;
+public class BankAccountDto extends SourceDto implements SourceDtoInterface {
 
     private String owner;
 
