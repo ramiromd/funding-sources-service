@@ -3,7 +3,7 @@ package com.example.fundingsourcesservice.data;
 import lombok.Data;
 
 @Data
-public class CreditCardDto implements SourceDtoInterface {
+public class BankAccountDto implements SourceDtoInterface {
 
     private String userId;
 
@@ -11,9 +11,9 @@ public class CreditCardDto implements SourceDtoInterface {
 
     private String name;
 
+    private String owner;
+
+    private String bankName;
+
     private String number;
-
-    private String cardholderName;
-
-    private String expirationDate;
 }
