@@ -1,6 +1,8 @@
 package com.example.fundingsourcesservice.controller;
 
+import com.example.fundingsourcesservice.data.CreditCardDto;
 import com.example.fundingsourcesservice.data.SampleResponseDto;
+import com.example.fundingsourcesservice.data.SourceCreatedDto;
 import com.example.fundingsourcesservice.data.SourceListItemDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @RestController
@@ -53,8 +56,21 @@ public class FundingSourceController {
     }
 
     @PostMapping(value="/", produces = "application/json")
-    public SampleResponseDto createSource() {
-        return new SampleResponseDto("Source created ...");
+    @Parameter(in = ParameterIn.HEADER, name = "X-USER-ID", schema = @Schema(type="string"), required = true)
+    @ApiResponses(
+            value = @ApiResponse(
+                    responseCode = "201",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = SourceCreatedDto.class))
+                            )
+                    }
+            )
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    public SourceCreatedDto createSource(@RequestBody CreditCardDto creditCardData) {
+        return new SourceCreatedDto(1L, creditCardData.getName(), "credit_card", LocalDateTime.now());
     }
 
     @DeleteMapping(value="/{id}", produces = "application/json")
