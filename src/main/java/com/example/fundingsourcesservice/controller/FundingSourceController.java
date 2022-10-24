@@ -1,9 +1,6 @@
 package com.example.fundingsourcesservice.controller;
 
-import com.example.fundingsourcesservice.data.CreditCardDto;
-import com.example.fundingsourcesservice.data.SampleResponseDto;
-import com.example.fundingsourcesservice.data.SourceCreatedDto;
-import com.example.fundingsourcesservice.data.SourceListItemDto;
+import com.example.fundingsourcesservice.data.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -69,8 +66,8 @@ public class FundingSourceController {
             )
     )
     @ResponseStatus(HttpStatus.CREATED)
-    public SourceCreatedDto createSource(@RequestBody CreditCardDto creditCardData) {
-        return new SourceCreatedDto(1L, creditCardData.getName(), "credit_card", LocalDateTime.now());
+    public SourceCreatedDto createSource(@RequestBody SourceDto source) {
+        return new SourceCreatedDto(1L, source.getName(), source.getType(), LocalDateTime.now());
     }
 
     @DeleteMapping(value="/{id}", produces = "application/json")

@@ -1,14 +1,32 @@
 package com.example.fundingsourcesservice.data;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type" // Discriminator: A nivel de JSON. Luego, no lo tiene en cuenta para convertir a objeto.
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = CreditCardDto.class, name = "credit_card"),
+        @JsonSubTypes.Type(value = BankAccountDto.class, name = "bank_account")
+})
 abstract public class SourceDto {
 
-    private String userId;
+    protected String userId;
+    // Jackson omite la propiedad que se usa como discriminador.
+    // Se delega la responsabilidad a la especialización.
+    // protected String type;
 
-    private String type;
+    protected String name;
 
-    private String name;
-
+    // Jackson omite la propiedad que se usa como discriminador.
+    // Se delega la responsabilidad a la especialización.
+    abstract public String getType();
 }

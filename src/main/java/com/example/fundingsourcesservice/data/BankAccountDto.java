@@ -1,8 +1,10 @@
 package com.example.fundingsourcesservice.data;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class BankAccountDto extends SourceDto implements SourceDtoInterface {
 
     private String owner;
@@ -10,4 +12,9 @@ public class BankAccountDto extends SourceDto implements SourceDtoInterface {
     private String bankName;
 
     private String number;
+
+    public String getType() {
+        return "bank_account";
+    }
+
 }

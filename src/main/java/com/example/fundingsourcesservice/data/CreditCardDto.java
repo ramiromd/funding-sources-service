@@ -1,8 +1,10 @@
 package com.example.fundingsourcesservice.data;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class CreditCardDto extends SourceDto implements SourceDtoInterface {
 
     private String number;
@@ -10,4 +12,8 @@ public class CreditCardDto extends SourceDto implements SourceDtoInterface {
     private String cardholderName;
 
     private String expirationDate;
+
+    public String getType() {
+        return "credit_card";
+    }
 }
