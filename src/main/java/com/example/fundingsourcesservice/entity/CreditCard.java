@@ -24,4 +24,8 @@ public class CreditCard extends Source {
 
     @Column(length = 5)
     private String expirationDate;
+
+    public String getType() {
+        return TypeDiscriminator.CREDIT_CARD;
+    }
 }

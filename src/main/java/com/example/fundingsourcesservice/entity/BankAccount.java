@@ -17,4 +17,8 @@ public class BankAccount extends Source {
 
     @Column(length = 32)
     private String number;
+
+    public String getType() {
+        return TypeDiscriminator.BANK_ACCOUNT;
+    }
 }
