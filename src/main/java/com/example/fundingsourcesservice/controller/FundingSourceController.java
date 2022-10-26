@@ -1,6 +1,7 @@
 package com.example.fundingsourcesservice.controller;
 
 import com.example.fundingsourcesservice.data.*;
+import com.example.fundingsourcesservice.service.FundingSourceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,9 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/api/v1/sources")
 public class FundingSourceController {
+
+    @Autowired
+    FundingSourceService service;
 
     @Operation(summary="Get a source by its id")
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -66,9 +72,21 @@ public class FundingSourceController {
             )
     )
     @ResponseStatus(HttpStatus.CREATED)
-    public SourceCreatedDto createSource(@RequestBody SourceDto source) {
-        return new SourceCreatedDto(1L, source.getName(), source.getType(), LocalDateTime.now());
+    public SourceCreatedDto createSource(
+            @RequestBody SourceDtoInterface source,
+            @RequestHeader("X-USER-ID") String userId
+    ) throws Exception {
+        SourceCreatedDto response = this.service.createSourceFor(source, userId);
+        return response;
     }
+    // Usando la clase abstracta, castea bien en tiempo de ejecución.
+    // Pero, chilla a nivel estático cuando se invoca a un método del servicio.
+    // public SourceCreatedDto createSource(@RequestBody SourceDto source, @RequestHeader("X-USER-ID") String userId) throws Exception {
+    //    return this.service.createSourceFor(source, userId);
+        // return new SourceCreatedDto(1L, source.getName(), source.getType(), LocalDateTime.now());
+    //}
+
+
 
     @DeleteMapping(value="/{id}", produces = "application/json")
     public SampleResponseDto deleteSource(@PathVariable int id) {
