@@ -1,7 +1,7 @@
 package com.example.fundingsourcesservice.integration.repository;
 
 import com.example.fundingsourcesservice.entity.CreditCard;
-import com.example.fundingsourcesservice.entity.enums.CreditCardBrand;
+import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
 import com.example.fundingsourcesservice.repository.CreditCardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

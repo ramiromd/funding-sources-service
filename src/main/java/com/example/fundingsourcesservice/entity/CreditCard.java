@@ -1,6 +1,6 @@
 package com.example.fundingsourcesservice.entity;
 
-import com.example.fundingsourcesservice.entity.enums.CreditCardBrand;
+import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class CreditCard extends Source {
     @Column
     private int lastFourDigits;
 
-    @Column(length = 5)
+    @Column(length = 8)
     private String expirationDate;
 
     public String getType() {

@@ -3,6 +3,7 @@ package com.example.fundingsourcesservice.service;
 import com.example.fundingsourcesservice.data.*;
 import com.example.fundingsourcesservice.entity.CreditCard;
 import com.example.fundingsourcesservice.entity.TypeDiscriminator;
+import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
 import com.example.fundingsourcesservice.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,16 +36,11 @@ public class FundingSourceService {
         return output;
     }
 
-    private SourceCreatedDto createCreditCardFor(CreditCardDto dto, String userId) {
-        return new SourceCreatedDto(1L, dto.getName(), dto.getType(), LocalDateTime.now());
-    }
-
     private SourceCreatedDto createBankAccountFor(BankAccountDto dto, String userId) {
         return new SourceCreatedDto(1L, dto.getName(), dto.getType(), LocalDateTime.now());
     }
 
-    /*
-    public SourceCreatedDto createCreditCardFor(CreditCardDto creditCard, String userId) {
+    private SourceCreatedDto createCreditCardFor(CreditCardDto creditCard, String userId) {
 
         CreditCard creditCardEntity = new CreditCard();
         int bin = Integer.parseInt(creditCard.getNumber().substring(0, 5));
@@ -57,8 +53,11 @@ public class FundingSourceService {
 
         // Custom fields
         creditCardEntity.setCardholderName(creditCard.getCardholderName());
+        // TODO: Create a BIN Service ...
+        creditCardEntity.setBrand(CreditCardBrand.UNKNOWN);
         creditCardEntity.setBin(bin);
         creditCardEntity.setLastFourDigits(lastFour);
+        creditCardEntity.setExpirationDate(creditCard.getExpirationDate());
 
         this.creditCards.save(creditCardEntity);
 
@@ -69,5 +68,4 @@ public class FundingSourceService {
                 creditCardEntity.getCreatedAt()
         );
     }
-    */
 }
