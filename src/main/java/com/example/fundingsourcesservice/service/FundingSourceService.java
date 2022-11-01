@@ -1,12 +1,15 @@
 package com.example.fundingsourcesservice.service;
 
 import com.example.fundingsourcesservice.data.*;
+import com.example.fundingsourcesservice.entity.BankAccount;
 import com.example.fundingsourcesservice.entity.CreditCard;
 import com.example.fundingsourcesservice.entity.TypeDiscriminator;
 import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
+import com.example.fundingsourcesservice.repository.BankAccountRepository;
 import com.example.fundingsourcesservice.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +18,9 @@ public class FundingSourceService {
 
     @Autowired
     CreditCardRepository creditCards;
+
+    @Autowired
+    BankAccountRepository bankAccounts;
 
     public SourceCreatedDto createSourceFor(SourceDtoInterface aSource, String userId) throws Exception {
 
@@ -37,7 +43,27 @@ public class FundingSourceService {
     }
 
     private SourceCreatedDto createBankAccountFor(BankAccountDto dto, String userId) {
-        return new SourceCreatedDto(1L, dto.getName(), dto.getType(), LocalDateTime.now());
+
+        BankAccount bankAccountEntity = new BankAccount();
+
+        // Base fields
+        bankAccountEntity.setName(dto.getName());
+        bankAccountEntity.setUserId(userId);
+        bankAccountEntity.setCreatedAt(LocalDateTime.now());
+
+        // Custom fields
+        bankAccountEntity.setBankName(dto.getBankName());
+        bankAccountEntity.setNumber(dto.getNumber());
+        bankAccountEntity.setOwner(dto.getOwner());
+
+        this.bankAccounts.save(bankAccountEntity);
+
+        return new SourceCreatedDto(
+                bankAccountEntity.getId(),
+                bankAccountEntity.getName(),
+                bankAccountEntity.getType(),
+                bankAccountEntity.getCreatedAt()
+        );
     }
 
     private SourceCreatedDto createCreditCardFor(CreditCardDto creditCard, String userId) {

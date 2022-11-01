@@ -4,25 +4,30 @@ import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @DiscriminatorValue(TypeDiscriminator.CREDIT_CARD)
 public class CreditCard extends Source {
 
-    @Column(length = 100)
+    @NotNull
+    @Column(length = 100, nullable = false)
     private String cardholderName;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private int bin;
 
-    @Column(length = 32)
+    @NotNull
+    @Column(length = 32, nullable = false)
     private CreditCardBrand brand;
 
-    @Column
+    @NotNull
+    @Column(nullable = false)
     private int lastFourDigits;
 
-    @Column(length = 8)
+    @Column(length = 8, nullable = false)
     private String expirationDate;
 
     public String getType() {
