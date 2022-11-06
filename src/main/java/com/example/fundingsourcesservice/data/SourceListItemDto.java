@@ -9,9 +9,13 @@ public class SourceListItemDto {
 
     private Long id;
 
+    private String userId;
+
     private String type;
 
     private String name;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime deletedAt;
 }

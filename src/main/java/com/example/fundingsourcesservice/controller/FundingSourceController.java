@@ -1,7 +1,15 @@
 package com.example.fundingsourcesservice.controller;
 
 import com.example.fundingsourcesservice.data.*;
+import com.example.fundingsourcesservice.data.serializer.SourceListItemSerializer;
+import com.example.fundingsourcesservice.entity.BankAccount;
+import com.example.fundingsourcesservice.entity.CreditCard;
+import com.example.fundingsourcesservice.entity.Source;
+import com.example.fundingsourcesservice.repository.SourceRepository;
 import com.example.fundingsourcesservice.service.FundingSourceService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -11,11 +19,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @RestController
@@ -24,6 +29,9 @@ public class FundingSourceController {
 
     @Autowired
     FundingSourceService service;
+
+    @Autowired
+    SourceRepository sources;
 
     @Operation(summary="Get a source by its id")
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -49,10 +57,26 @@ public class FundingSourceController {
     @GetMapping(value = "/", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public ArrayList<SourceListItemDto> getSources() {
+
+        // TODO: Filter deleted items
+        Iterable<Source> data = this.sources.findAll();
         ArrayList<SourceListItemDto> collection = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            collection.add(new SourceListItemDto());
+        // TODO: Refactor Mapper build ...
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(CreditCard.class, new SourceListItemSerializer());
+        module.addSerializer(BankAccount.class, new SourceListItemSerializer());
+
+        mapper.registerModule(module);
+
+
+        for (Source item : data) {
+            SourceListItemDto dto  = mapper.convertValue(item, SourceListItemDto.class);
+            collection.add(dto);
         }
 
         return collection;

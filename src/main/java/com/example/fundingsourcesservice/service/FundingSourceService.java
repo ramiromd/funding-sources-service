@@ -7,14 +7,19 @@ import com.example.fundingsourcesservice.entity.TypeDiscriminator;
 import com.example.fundingsourcesservice.data.enums.CreditCardBrand;
 import com.example.fundingsourcesservice.repository.BankAccountRepository;
 import com.example.fundingsourcesservice.repository.CreditCardRepository;
+import com.example.fundingsourcesservice.repository.SourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 public class FundingSourceService {
+
+    @Autowired
+    SourceRepository sourceRepository;
 
     @Autowired
     CreditCardRepository creditCards;

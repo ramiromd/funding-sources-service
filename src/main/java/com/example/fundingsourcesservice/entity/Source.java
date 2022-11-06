@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="source_type",
         discriminatorType = DiscriminatorType.STRING)
-public class Source {
+abstract public class Source {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -27,4 +27,6 @@ public class Source {
 
     @Column
     private LocalDateTime deletedAt;
+
+    abstract public String getType();
 }
