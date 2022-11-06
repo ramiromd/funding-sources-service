@@ -1,6 +1,8 @@
 package com.example.fundingsourcesservice.controller;
 
 import com.example.fundingsourcesservice.data.*;
+import com.example.fundingsourcesservice.data.contract.SourceDetailDtoInterface;
+import com.example.fundingsourcesservice.data.helper.DataMapperFactory;
 import com.example.fundingsourcesservice.data.serializer.SourceListItemSerializer;
 import com.example.fundingsourcesservice.entity.BankAccount;
 import com.example.fundingsourcesservice.entity.CreditCard;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/sources")
@@ -35,8 +38,14 @@ public class FundingSourceController {
 
     @Operation(summary="Get a source by its id")
     @GetMapping(value = "/{id}", produces = "application/json")
-    public SampleResponseDto getSource(@PathVariable int id) {
-        return new SampleResponseDto("Get a detail for source: " + id);
+    public SourceDetailDtoInterface getSource(@PathVariable Long id) throws Exception {
+
+        Optional<Source> entity = this.sources.findById(id);
+        if (entity.isEmpty()) {
+            throw new Exception("Entity not found");
+        }
+
+        return DataMapperFactory.convertSourceEntityToDetailDto(entity.get());
     }
 
     @Operation(summary="List a source collection")
@@ -63,7 +72,7 @@ public class FundingSourceController {
         ArrayList<SourceListItemDto> collection = new ArrayList<>();
 
         // TODO: Refactor Mapper build ...
-
+        // See: https://stackoverflow.com/a/57667716
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
